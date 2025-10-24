@@ -102,8 +102,8 @@
   </div>
 </template>
 <script>
-import github from "@/assets/img/github.svg";
-import google from "@/assets/img/google.svg";
+import github from "@/sitemanager/assets/img/github.svg";
+import google from "@/sitemanager/assets/img/google.svg";
 
 export default {
   data() {

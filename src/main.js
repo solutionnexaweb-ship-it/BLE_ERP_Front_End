@@ -2,89 +2,153 @@ import { createApp } from "vue";
 import { createWebHistory, createRouter } from "vue-router";
 
 // styles
-
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import "@/assets/styles/tailwind.css";
+import "@/admin/assets/styles/tailwind.css";
+import "@/sitemanager/assets/styles/tailwind.css";
 
-// mouting point for the whole app
-
+// mounting point for the whole app
 import App from "@/App.vue";
 
-// layouts
+// layouts - Admin
+import AdminLayout from "@/admin/layouts/Admin.vue";
+import AdminAuth from "@/admin/layouts/Auth.vue";
 
-import Admin from "@/layouts/Admin.vue";
-import Auth from "@/layouts/Auth.vue";
+// layouts - Site Manager
+import SiteManagerLayout from "@/sitemanager/layouts/Admin.vue";
+import SiteManagerAuth from "@/sitemanager/layouts/Auth.vue";
 
 // views for Admin layout
+import AdminDashboard from "@/admin/views/admin/Dashboard.vue";
+import AdminSettings from "@/admin/views/admin/Settings.vue";
+import AdminTables from "@/admin/views/admin/Tables.vue";
+import AdminMaps from "@/admin/views/admin/Maps.vue";
 
-import Dashboard from "@/views/admin/Dashboard.vue";
-import Settings from "@/views/admin/Settings.vue";
-import Tables from "@/views/admin/Tables.vue";
-import Maps from "@/views/admin/Maps.vue";
+// views for Site Manager layout
+import SiteManagerDashboard from "@/sitemanager/views/site Manager/Dashboard.vue";
+import SiteManagerSettings from "@/sitemanager/views/site Manager/Settings.vue";
+import SiteManagerTables from "@/sitemanager/views/site Manager/Tables.vue";
+import SiteManagerMaps from "@/sitemanager/views/site Manager/Maps.vue";
 
-// views for Auth layout
+// views for Auth layout - Admin
+import AdminLogin from "@/admin/views/auth/Login.vue";
+import AdminRegister from "@/admin/views/auth/Register.vue";
 
-import Login from "@/views/auth/Login.vue";
-import Register from "@/views/auth/Register.vue";
+// views for Auth layout - Site Manager
+import SiteManagerLogin from "@/sitemanager/views/auth/Login.vue";
+import SiteManagerRegister from "@/sitemanager/views/auth/Register.vue";
 
-// views without layouts
+// views without layouts - Admin
+import AdminLanding from "@/admin/views/Landing.vue";
+import AdminProfile from "@/admin/views/Profile.vue";
+import AdminIndex from "@/admin/views/Index.vue";
 
-import Landing from "@/views/Landing.vue";
-import Profile from "@/views/Profile.vue";
-import Index from "@/views/Index.vue";
+// views without layouts - Site Manager
+import SiteManagerLanding from "@/sitemanager/views/Landing.vue";
+import SiteManagerProfile from "@/sitemanager/views/Profile.vue";
+// import SiteManagerIndex from "@/sitemanager/views/Index.vue";
 
 // routes
-
 const routes = [
+  // Admin routes
   {
     path: "/admin",
     redirect: "/admin/dashboard",
-    component: Admin,
+    component: AdminLayout,
     children: [
       {
         path: "/admin/dashboard",
-        component: Dashboard,
+        component: AdminDashboard,
       },
       {
         path: "/admin/settings",
-        component: Settings,
+        component: AdminSettings,
       },
       {
         path: "/admin/tables",
-        component: Tables,
+        component: AdminTables,
       },
       {
         path: "/admin/maps",
-        component: Maps,
+        component: AdminMaps,
       },
     ],
   },
   {
-    path: "/auth",
-    redirect: "/auth/login",
-    component: Auth,
+    path: "/admin/auth",
+    redirect: "/admin/auth/login",
+    component: AdminAuth,
     children: [
       {
-        path: "/auth/login",
-        component: Login,
+        path: "/admin/auth/login",
+        component: AdminLogin,
       },
       {
-        path: "/auth/register",
-        component: Register,
+        path: "/admin/auth/register",
+        component: AdminRegister,
       },
     ],
   },
   {
-    path: "/landing",
-    component: Landing,
+    path: "/admin/landing",
+    component: AdminLanding,
   },
   {
-    path: "/profile",
-    component: Profile,
+    path: "/admin/profile",
+    component: AdminProfile,
   },
+  
+  // Site Manager routes
+  {
+    path: "/sitemanager",
+    redirect: "/sitemanager/dashboard",
+    component: SiteManagerLayout,
+    children: [
+      {
+        path: "/sitemanager/dashboard",
+        component: SiteManagerDashboard,
+      },
+      {
+        path: "/sitemanager/settings",
+        component: SiteManagerSettings,
+      },
+      {
+        path: "/sitemanager/tables",
+        component: SiteManagerTables,
+      },
+      {
+        path: "/sitemanager/maps",
+        component: SiteManagerMaps,
+      },
+    ],
+  },
+  {
+    path: "/sitemanager/auth",
+    redirect: "/sitemanager/auth/login",
+    component: SiteManagerAuth,
+    children: [
+      {
+        path: "/sitemanager/auth/login",
+        component: SiteManagerLogin,
+      },
+      {
+        path: "/sitemanager/auth/register",
+        component: SiteManagerRegister,
+      },
+    ],
+  },
+  {
+    path: "/sitemanager/landing",
+    component: SiteManagerLanding,
+  },
+  {
+    path: "/sitemanager/profile",
+    component: SiteManagerProfile,
+  },
+  
+  // Default route (you need to decide which index to use)
   {
     path: "/",
-    component: Index,
+    component: AdminIndex, // or SiteManagerIndex
   },
   { path: "/:pathMatch(.*)*", redirect: "/" },
 ];

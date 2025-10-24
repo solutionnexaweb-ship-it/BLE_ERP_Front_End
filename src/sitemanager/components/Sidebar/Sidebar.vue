@@ -99,7 +99,7 @@
                   class="fas fa-tv mr-2 text-sm"
                   :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
                 ></i>
-                Dashboard
+                Dashboard sitemanager
               </a>
             </router-link>
           </li>
@@ -347,8 +347,8 @@
 ); }
 
 <script>
-import NotificationDropdown from "@/components/Dropdowns/NotificationDropdown.vue";
-import UserDropdown from "@/components/Dropdowns/UserDropdown.vue";
+import NotificationDropdown from "@/sitemanager/components/Dropdowns/NotificationDropdown.vue";
+import UserDropdown from "@/sitemanager/components/Dropdowns/UserDropdown.vue";
 
 export default {
   data() {

@@ -474,18 +474,18 @@
   </div>
 </template>
 <script>
-import TableDropdown from "@/components/Dropdowns/TableDropdown.vue";
+import TableDropdown from "@/sitemanager/components/Dropdowns/TableDropdown.vue";
 
-import bootstrap from "@/assets/img/bootstrap.jpg";
-import angular from "@/assets/img/angular.jpg";
-import sketch from "@/assets/img/sketch.jpg";
-import react from "@/assets/img/react.jpg";
-import vue from "@/assets/img/react.jpg";
+import bootstrap from "@/sitemanager/assets/img/bootstrap.jpg";
+import angular from "@/sitemanager/assets/img/angular.jpg";
+import sketch from "@/sitemanager/assets/img/sketch.jpg";
+import react from "@/sitemanager/assets/img/react.jpg";
+import vue from "@/sitemanager/assets/img/vue.jpg";
 
-import team1 from "@/assets/img/team-1-800x800.jpg";
-import team2 from "@/assets/img/team-2-800x800.jpg";
-import team3 from "@/assets/img/team-3-800x800.jpg";
-import team4 from "@/assets/img/team-4-470x470.png";
+import team1 from "@/sitemanager/assets/img/team-1-800x800.jpg";
+import team2 from "@/sitemanager/assets/img/team-2-800x800.jpg";
+import team3 from "@/sitemanager/assets/img/team-3-800x800.jpg";
+import team4 from "@/sitemanager/assets/img/team-4-470x470.png";
 
 export default {
   data() {
