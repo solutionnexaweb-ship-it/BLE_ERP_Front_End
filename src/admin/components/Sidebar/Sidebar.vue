@@ -105,93 +105,343 @@
           </li>
 
           <li class="items-center">
-            <router-link
-              to="/admin/projects/create-update"
-              v-slot="{ href, navigate, isActive }"
+            <a
+              @click="toggleSubmenu('projects')"
+              class="text-xs uppercase py-3 font-bold block cursor-pointer text-blueGray-700 hover:text-blueGray-500"
             >
-              <a
-                :href="href"
-                @click="navigate"
-                class="text-xs uppercase py-3 font-bold block"
-                :class="[
-                  isActive
-                    ? 'text-emerald-500 hover:text-emerald-600'
-                    : 'text-blueGray-700 hover:text-blueGray-500',
-                ]"
-              >
-                <i
-                  class="fas fa-server mr-2 text-sm"
-                  :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
-                ></i>
-                Projects
-              </a>
-            </router-link>
-          </li>
-
-          <li class="items-center">
-            <router-link
-              to="/admin/labours"
-              v-slot="{ href, navigate, isActive }"
+              <i class="fas fa-server mr-2 text-sm text-blueGray-300"></i>
+              Projects
+              <i
+                class="fas fa-chevron-down ml-2 text-xs transition-transform duration-200"
+                :class="{ 'rotate-180': activeMenus.projects }"
+              ></i>
+            </a>
+            
+            <!-- Submenu -->
+            <ul
+              v-show="activeMenus.projects"
+              class="ml-6 mt-1 mb-2"
             >
-              <a
-                :href="href"
-                @click="navigate"
-                class="text-xs uppercase py-3 font-bold block"
-                :class="[
-                  isActive
-                    ? 'text-emerald-500 hover:text-emerald-600'
-                    : 'text-blueGray-700 hover:text-blueGray-500',
-                ]"
-              >
-                <i
-                  class="fas fa-users mr-2 text-sm"
-                  :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
-                ></i>
-                Labours
-              </a>
-            </router-link>
+              <li class="items-center">
+                <router-link
+                  to="/admin/projects/create-update"
+                  v-slot="{ href, navigate, isActive }"
+                >
+                  <a
+                    :href="href"
+                    @click="navigate"
+                    class="text-xs py-2 font-semibold block"
+                    :class="[
+                      isActive
+                        ? 'text-emerald-500 hover:text-emerald-600'
+                        : 'text-blueGray-600 hover:text-blueGray-700',
+                    ]"
+                  >
+                    <i
+                      class="fas fa-plus-circle mr-2 text-xs"
+                      :class="[isActive ? 'opacity-75' : 'text-blueGray-400']"
+                    ></i>
+                    Add New Project
+                  </a>
+                </router-link>
+              </li>
+              
+              <li class="items-center">
+                <router-link
+                  to="/admin/projects/view-all"
+                  v-slot="{ href, navigate, isActive }"
+                >
+                  <a
+                    :href="href"
+                    @click="navigate"
+                    class="text-xs py-2 font-semibold block"
+                    :class="[
+                      isActive
+                        ? 'text-emerald-500 hover:text-emerald-600'
+                        : 'text-blueGray-600 hover:text-blueGray-700',
+                    ]"
+                  >
+                    <i
+                      class="fas fa-list mr-2 text-xs"
+                      :class="[isActive ? 'opacity-75' : 'text-blueGray-400']"
+                    ></i>
+                    View All
+                  </a>
+                </router-link>
+              </li>
+            </ul>
           </li>
 
           <li class="items-center">
-            <router-link to="/admin/maps" v-slot="{ href, navigate, isActive }">
-              <a
-                :href="href"
-                @click="navigate"
-                class="text-xs uppercase py-3 font-bold block"
-                :class="[
-                  isActive
-                    ? 'text-emerald-500 hover:text-emerald-600'
-                    : 'text-blueGray-700 hover:text-blueGray-500',
-                ]"
-              >
-                <i
-                  class="fas fa-cubes mr-2 text-sm"
-                  :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
-                ></i>
-                Materials
-              </a>
-            </router-link>
+            <a
+              @click="toggleSubmenu('labours')"
+              class="text-xs uppercase py-3 font-bold block cursor-pointer text-blueGray-700 hover:text-blueGray-500"
+            >
+              <i class="fas fa-users mr-2 text-sm text-blueGray-300"></i>
+              Labours
+              <i
+                class="fas fa-chevron-down ml-2 text-xs transition-transform duration-200"
+                :class="{ 'rotate-180': activeMenus.labours }"
+              ></i>
+            </a>
+            
+            <!-- Submenu -->
+            <ul
+              v-show="activeMenus.labours"
+              class="ml-6 mt-1 mb-2"
+            >
+              <li class="items-center">
+                <router-link
+                  to="/admin/projects/create-update"
+                  v-slot="{ href, navigate, isActive }"
+                >
+                  <a
+                    :href="href"
+                    @click="navigate"
+                    class="text-xs py-2 font-semibold block"
+                    :class="[
+                      isActive
+                        ? 'text-emerald-500 hover:text-emerald-600'
+                        : 'text-blueGray-600 hover:text-blueGray-700',
+                    ]"
+                  >
+                    <i
+                      class="fas fa-plus-circle mr-2 text-xs"
+                      :class="[isActive ? 'opacity-75' : 'text-blueGray-400']"
+                    ></i>
+                    Add New Labours
+                  </a>
+                </router-link>
+              </li>
+              
+              <li class="items-center">
+                <router-link
+                  to="/admin/labours"
+                  v-slot="{ href, navigate, isActive }"
+                >
+                  <a
+                    :href="href"
+                    @click="navigate"
+                    class="text-xs py-2 font-semibold block"
+                    :class="[
+                      isActive
+                        ? 'text-emerald-500 hover:text-emerald-600'
+                        : 'text-blueGray-600 hover:text-blueGray-700',
+                    ]"
+                  >
+                    <i
+                      class="fas fa-list mr-2 text-xs"
+                      :class="[isActive ? 'opacity-75' : 'text-blueGray-400']"
+                    ></i>
+                    View All
+                  </a>
+                </router-link>
+              </li>
+            </ul>
           </li>
 
           <li class="items-center">
-            <router-link to="/admin/maps" v-slot="{ href, navigate, isActive }">
-              <a
-                :href="href"
-                @click="navigate"
-                class="text-xs uppercase py-3 font-bold block"
-                :class="[
-                  isActive
-                    ? 'text-emerald-500 hover:text-emerald-600'
-                    : 'text-blueGray-700 hover:text-blueGray-500',
-                ]"
-              >
-                <i
-                  class="fas fa-industry mr-2 text-sm"
-                  :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
-                ></i>
-                Machines
-              </a>
-            </router-link>
+            <a
+              @click="toggleSubmenu('materials')"
+              class="text-xs uppercase py-3 font-bold block cursor-pointer text-blueGray-700 hover:text-blueGray-500"
+            >
+              <i class="fas fa-cubes mr-2 text-sm text-blueGray-300"></i>
+              Materials
+              <i
+                class="fas fa-chevron-down ml-2 text-xs transition-transform duration-200"
+                :class="{ 'rotate-180': activeMenus.materials }"
+              ></i>
+            </a>
+            
+            <!-- Submenu -->
+            <ul
+              v-show="activeMenus.materials"
+              class="ml-6 mt-1 mb-2"
+            >
+              <li class="items-center">
+                <router-link
+                  to="/admin/materials/create-update"
+                  v-slot="{ href, navigate, isActive }"
+                >
+                  <a
+                    :href="href"
+                    @click="navigate"
+                    class="text-xs py-2 font-semibold block"
+                    :class="[
+                      isActive
+                        ? 'text-emerald-500 hover:text-emerald-600'
+                        : 'text-blueGray-600 hover:text-blueGray-700',
+                    ]"
+                  >
+                    <i
+                      class="fas fa-plus-circle mr-2 text-xs"
+                      :class="[isActive ? 'opacity-75' : 'text-blueGray-400']"
+                    ></i>
+                    Add New Materials
+                  </a>
+                </router-link>
+              </li>
+              
+              <li class="items-center">
+                <router-link
+                  to="/admin/materials"
+                  v-slot="{ href, navigate, isActive }"
+                >
+                  <a
+                    :href="href"
+                    @click="navigate"
+                    class="text-xs py-2 font-semibold block"
+                    :class="[
+                      isActive
+                        ? 'text-emerald-500 hover:text-emerald-600'
+                        : 'text-blueGray-600 hover:text-blueGray-700',
+                    ]"
+                  >
+                    <i
+                      class="fas fa-list mr-2 text-xs"
+                      :class="[isActive ? 'opacity-75' : 'text-blueGray-400']"
+                    ></i>
+                    View All
+                  </a>
+                </router-link>
+              </li>
+            </ul>
+          </li>
+
+          <li class="items-center">
+            <a
+              @click="toggleSubmenu('machines')"
+              class="text-xs uppercase py-3 font-bold block cursor-pointer text-blueGray-700 hover:text-blueGray-500"
+            >
+              <i class="fas fa-industry mr-2 text-sm text-blueGray-300"></i>
+              Machines
+              <i
+                class="fas fa-chevron-down ml-2 text-xs transition-transform duration-200"
+                :class="{ 'rotate-180': activeMenus.machines }"
+              ></i>
+            </a>
+            
+            <!-- Submenu -->
+            <ul
+              v-show="activeMenus.machines"
+              class="ml-6 mt-1 mb-2"
+            >
+              <li class="items-center">
+                <router-link
+                  to="/admin/machines/create-update"
+                  v-slot="{ href, navigate, isActive }"
+                >
+                  <a
+                    :href="href"
+                    @click="navigate"
+                    class="text-xs py-2 font-semibold block"
+                    :class="[
+                      isActive
+                        ? 'text-emerald-500 hover:text-emerald-600'
+                        : 'text-blueGray-600 hover:text-blueGray-700',
+                    ]"
+                  >
+                    <i
+                      class="fas fa-plus-circle mr-2 text-xs"
+                      :class="[isActive ? 'opacity-75' : 'text-blueGray-400']"
+                    ></i>
+                    Add New Materials
+                  </a>
+                </router-link>
+              </li>
+              
+              <li class="items-center">
+                <router-link
+                  to="/admin/materials"
+                  v-slot="{ href, navigate, isActive }"
+                >
+                  <a
+                    :href="href"
+                    @click="navigate"
+                    class="text-xs py-2 font-semibold block"
+                    :class="[
+                      isActive
+                        ? 'text-emerald-500 hover:text-emerald-600'
+                        : 'text-blueGray-600 hover:text-blueGray-700',
+                    ]"
+                  >
+                    <i
+                      class="fas fa-list mr-2 text-xs"
+                      :class="[isActive ? 'opacity-75' : 'text-blueGray-400']"
+                    ></i>
+                    View All
+                  </a>
+                </router-link>
+              </li>
+            </ul>
+          </li>
+
+           <li class="items-center">
+            <a
+              @click="toggleSubmenu('requests')"
+              class="text-xs uppercase py-3 font-bold block cursor-pointer text-blueGray-700 hover:text-blueGray-500"
+            >
+              <i class="fa fa-reply-all mr-2 text-sm text-blueGray-300"></i>
+              Requests
+              <i
+                class="fas fa-chevron-down ml-2 text-xs transition-transform duration-200"
+                :class="{ 'rotate-180': activeMenus.requests }"
+              ></i>
+            </a>
+            
+            <!-- Submenu -->
+            <ul
+              v-show="activeMenus.requests"
+              class="ml-6 mt-1 mb-2"
+            >
+              <li class="items-center">
+                <router-link
+                  to="/admin/machines/create-update"
+                  v-slot="{ href, navigate, isActive }"
+                >
+                  <a
+                    :href="href"
+                    @click="navigate"
+                    class="text-xs py-2 font-semibold block"
+                    :class="[
+                      isActive
+                        ? 'text-emerald-500 hover:text-emerald-600'
+                        : 'text-blueGray-600 hover:text-blueGray-700',
+                    ]"
+                  >
+                    <i
+                      class="fas fa-plus-circle mr-2 text-xs"
+                      :class="[isActive ? 'opacity-75' : 'text-blueGray-400']"
+                    ></i>
+                    Add New Materials
+                  </a>
+                </router-link>
+              </li>
+              
+              <li class="items-center">
+                <router-link
+                  to="/admin/materials"
+                  v-slot="{ href, navigate, isActive }"
+                >
+                  <a
+                    :href="href"
+                    @click="navigate"
+                    class="text-xs py-2 font-semibold block"
+                    :class="[
+                      isActive
+                        ? 'text-emerald-500 hover:text-emerald-600'
+                        : 'text-blueGray-600 hover:text-blueGray-700',
+                    ]"
+                  >
+                    <i
+                      class="fas fa-list mr-2 text-xs"
+                      :class="[isActive ? 'opacity-75' : 'text-blueGray-400']"
+                    ></i>
+                    View All
+                  </a>
+                </router-link>
+              </li>
+            </ul>
           </li>
 
           <li class="items-center">
@@ -396,12 +646,22 @@ export default {
   data() {
     return {
       collapseShow: "hidden",
+      activeMenus: {
+        projects: false,
+        labours: false,
+        materials: false,
+        machines: false,
+        requests: false,
+      },
     };
   },
   methods: {
     toggleCollapseShow: function (classes) {
       this.collapseShow = classes;
     },
+    toggleSubmenu: function (menuName) {
+      this.activeMenus[menuName] = !this.activeMenus[menuName];
+    }
   },
   components: {
     NotificationDropdown,
@@ -409,3 +669,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.rotate-180 {
+  transform: rotate(180deg);
+}
+</style>

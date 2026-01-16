@@ -40,10 +40,17 @@ import AdminLanding from "@/admin/views/Landing.vue";
 import AdminProfile from "@/admin/views/Profile.vue";
 import AdminIndex from "@/admin/views/Index.vue";
 
-//import AdminProjectIndex from "@/admin/views/admin/Projects/index.vue";
 import AdminProjectIndex from "@/admin/views/admin/Projects/index.vue";
 import AdminProjectCreateUpdate from "@/admin/views/admin/Projects/createUpdate.vue";
+
 import AdminLabourIndex from "@/admin/views/admin/Labours/index.vue";
+import AdminLaboursCreateUpdate from "@/admin/views/admin/Labours/createUpdate.vue";
+
+import AdminMaterialsIndex from "@/admin/views/admin/Materials/index.vue";
+import AdminMaterialsCreateUpdate from "@/admin/views/admin/Materials/createUpdate.vue";
+
+import AdminMachineIndex from "@/admin/views/admin/Machines/index.vue";
+import AdminMachineCreateUpdate from "@/admin/views/admin/Machines/createUpdate.vue";
 
 
 // ===============================================================================================================
@@ -99,7 +106,35 @@ const routes = [
       {
         path: "/admin/labours",
         component: AdminLabourIndex,
-      }
+      },
+      {
+        path: "/admin/labours/create-update",
+        component: AdminLaboursCreateUpdate,
+      },
+      {
+        path: "/admin/labours",
+        component: AdminLabourIndex,
+      },
+      {
+        path: "/admin/labours/create-update",
+        component: AdminLaboursCreateUpdate,
+      },
+      {
+        path: "/admin/materials",
+        component: AdminMaterialsIndex,
+      },
+      {
+        path: "/admin/materials/create-update",
+        component: AdminMaterialsCreateUpdate,
+      },
+      {
+        path: "/admin/",
+        component: AdminMachineIndex,
+      },
+      {
+        path: "/admin/machines/create-update",
+        component: AdminMachineCreateUpdate,
+      },
     ],
   },
   {
