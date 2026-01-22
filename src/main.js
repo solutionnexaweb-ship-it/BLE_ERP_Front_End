@@ -9,6 +9,10 @@ import "@/sitemanager/assets/styles/tailwind.css";
 // mounting point for the whole app
 import App from "@/App.vue";
 
+
+// ===============================================================================================================
+
+
 // layouts - Admin
 import AdminLayout from "@/admin/layouts/Admin.vue";
 import AdminAuth from "@/admin/layouts/Auth.vue";
@@ -17,11 +21,40 @@ import AdminAuth from "@/admin/layouts/Auth.vue";
 import SiteManagerLayout from "@/sitemanager/layouts/Admin.vue";
 import SiteManagerAuth from "@/sitemanager/layouts/Auth.vue";
 
+
+// ===============================================================================================================
+
+
 // views for Admin layout
 import AdminDashboard from "@/admin/views/admin/Dashboard.vue";
 import AdminSettings from "@/admin/views/admin/Settings.vue";
 import AdminTables from "@/admin/views/admin/Tables.vue";
 import AdminMaps from "@/admin/views/admin/Maps.vue";
+
+// views for Auth layout - Admin
+import AdminLogin from "@/admin/views/auth/Login.vue";
+import AdminRegister from "@/admin/views/auth/Register.vue";
+
+// views without layouts - Admin
+import AdminLanding from "@/admin/views/Landing.vue";
+import AdminProfile from "@/admin/views/Profile.vue";
+import AdminIndex from "@/admin/views/Index.vue";
+
+import AdminProjectIndex from "@/admin/views/admin/Projects/index.vue";
+import AdminProjectCreateUpdate from "@/admin/views/admin/Projects/createUpdate.vue";
+
+import AdminLabourIndex from "@/admin/views/admin/Labours/index.vue";
+import AdminLaboursCreateUpdate from "@/admin/views/admin/Labours/createUpdate.vue";
+
+import AdminMaterialsIndex from "@/admin/views/admin/Materials/index.vue";
+import AdminMaterialsCreateUpdate from "@/admin/views/admin/Materials/createUpdate.vue";
+
+import AdminMachineIndex from "@/admin/views/admin/Machines/index.vue";
+import AdminMachineCreateUpdate from "@/admin/views/admin/Machines/createUpdate.vue";
+
+
+// ===============================================================================================================
+
 
 // views for Site Manager layout
 import SiteManagerDashboard from "@/sitemanager/views/site Manager/Dashboard.vue";
@@ -29,18 +62,9 @@ import SiteManagerSettings from "@/sitemanager/views/site Manager/Settings.vue";
 import SiteManagerTables from "@/sitemanager/views/site Manager/Tables.vue";
 import SiteManagerMaps from "@/sitemanager/views/site Manager/Maps.vue";
 
-// views for Auth layout - Admin
-import AdminLogin from "@/admin/views/auth/Login.vue";
-import AdminRegister from "@/admin/views/auth/Register.vue";
-
 // views for Auth layout - Site Manager
 import SiteManagerLogin from "@/sitemanager/views/auth/Login.vue";
 import SiteManagerRegister from "@/sitemanager/views/auth/Register.vue";
-
-// views without layouts - Admin
-import AdminLanding from "@/admin/views/Landing.vue";
-import AdminProfile from "@/admin/views/Profile.vue";
-import AdminIndex from "@/admin/views/Index.vue";
 
 // views without layouts - Site Manager
 import SiteManagerLanding from "@/sitemanager/views/Landing.vue";
@@ -71,6 +95,46 @@ const routes = [
         path: "/admin/maps",
         component: AdminMaps,
       },
+      {
+        path: "/admin/projects",
+        component: AdminProjectIndex,
+      },
+      {
+        path: "/admin/projects/create-update",
+        component: AdminProjectCreateUpdate,
+      },
+      {
+        path: "/admin/labours",
+        component: AdminLabourIndex,
+      },
+      {
+        path: "/admin/labours/create-update",
+        component: AdminLaboursCreateUpdate,
+      },
+      {
+        path: "/admin/labours",
+        component: AdminLabourIndex,
+      },
+      {
+        path: "/admin/labours/create-update",
+        component: AdminLaboursCreateUpdate,
+      },
+      {
+        path: "/admin/materials",
+        component: AdminMaterialsIndex,
+      },
+      {
+        path: "/admin/materials/create-update",
+        component: AdminMaterialsCreateUpdate,
+      },
+      {
+        path: "/admin/",
+        component: AdminMachineIndex,
+      },
+      {
+        path: "/admin/machines/create-update",
+        component: AdminMachineCreateUpdate,
+      },
     ],
   },
   {
@@ -96,6 +160,8 @@ const routes = [
     path: "/admin/profile",
     component: AdminProfile,
   },
+
+  // ===============================================================================================================
   
   // Site Manager routes
   {
@@ -145,7 +211,7 @@ const routes = [
     component: SiteManagerProfile,
   },
   
-  // Default route (you need to decide which index to use)
+  // Default route 
   {
     path: "/",
     component: AdminIndex, // or SiteManagerIndex
