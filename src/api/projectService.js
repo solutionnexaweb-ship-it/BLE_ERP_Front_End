@@ -1,21 +1,30 @@
 import api from "./axios";
 
+/**
+ * Create new project
+ * POST /ble/api/project
+ */
+export const createProject = (payload) => {
+  console.log("FINAL PAYLOAD SENT ", payload);
+  return api.post("/project", payload);
+};
 
-// Project APIs
-export const getProjects = () => {
-    return api.get("/project");
-}
+/**
+ * Get all projects
+ * GET /ble/api/project
+ */
+export const getAllProjects = () => {
+  return api.get("/project");
+};
 
 export const getProjectById = (id) => {
-    return api.get(`/project/${id}`);
-}
+  return api.get(`/project/${id}`);
+};
 
-export const createProject = (projectData) => {
-    return api.post("/project", projectData);
-}
+export const updateProject = (id, payload) => {
+  return api.put(`/project/${id}`, payload);
+};
 
-
-// Labours APIs
-export const getLabours = () => {
-    return api.get("/employee")
-}
+export const deleteProject = (id) => {
+  return api.delete(`/project/${id}`);
+};

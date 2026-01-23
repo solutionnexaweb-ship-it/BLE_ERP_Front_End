@@ -146,11 +146,12 @@
                 </label>
                 <input
                   id="startDate"
-                  type="datetime-local"
+                  type="date"
                   v-model="formData.startDate"
                   required
                   class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                 />
+
               </div>
             </div>
 
@@ -165,11 +166,12 @@
                 </label>
                 <input
                   id="endDate"
-                  type="datetime-local"
+                  type="date"
                   v-model="formData.endDate"
                   required
                   class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                 />
+
               </div>
             </div>
 
@@ -185,11 +187,13 @@
                 <input
                   id="employeeId"
                   type="number"
+                  min="1"
                   v-model.number="formData.employeeId"
                   required
-                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                   placeholder="e.g., 123"
                 />
+
               </div>
             </div>
 
@@ -206,7 +210,7 @@
                   id="estimateBudget"
                   type="number"
                   step="0.01"
-                  v-model.number="formData.estimateBudget"
+                  v-model.number="formData.estimatedBudget"
                   class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   placeholder="e.g., 50000"
                 />
@@ -321,179 +325,93 @@
 import { createProject } from "@/api/projectService";
 
 export default {
-  name: 'ProjectCreate',
-  
+  name: "ProjectCreate",
+
   data() {
     return {
       formData: {
-        projectCode: '',
-        projectName: '',
-        location: '',
-        projectType: '',
-        startDate: '',
-        endDate: '',
+        projectCode: "",
+        projectName: "",
+        location: "",
+        projectType: "",
+        startDate: "",
+        endDate: "",
         employeeId: null,
-        estimateBudget: null
+        estimatedBudget: null,
       },
       isSubmitting: false,
-      successMessage: '',
-      errorMessage: '',
-      createdProject: null
+      successMessage: "",
+      errorMessage: "",
+      createdProject: null,
     };
   },
 
   methods: {
     async handleSubmit() {
-      // Clear previous messages
-      this.successMessage = '';
-      this.errorMessage = '';
+      this.successMessage = "";
+      this.errorMessage = "";
       this.isSubmitting = true;
 
       try {
-        // Validate dates
-        if (new Date(this.formData.endDate) <= new Date(this.formData.startDate)) {
-          this.errorMessage = 'End date must be after start date';
-          this.isSubmitting = false;
+        if (this.formData.endDate <= this.formData.startDate) {
+          this.errorMessage = "End date must be after start date";
           return;
         }
 
-        // Prepare data for API
-        const projectData = {
+        //  BACKEND PAYLOAD
+        const payload = {
           projectCode: this.formData.projectCode.trim(),
           projectName: this.formData.projectName.trim(),
           location: this.formData.location.trim(),
           projectType: this.formData.projectType,
-          startDate: this.formatDateForAPI(this.formData.startDate),
-          endDate: this.formatDateForAPI(this.formData.endDate),
-          employeeId: this.formData.employeeId,
-          estimateBudget: this.formData.estimateBudget || null
+          startDate: this.formData.startDate, 
+          endDate: this.formData.endDate,   
+          employee: {
+            id: this.formData.employeeId,
+          },
+          estimatedBudget: this.formData.estimatedBudget,
         };
 
-        console.log('Submitting project data:', projectData);
+        console.log("Submitting payload:", payload);
 
-        // Call the API
-        const response = await createProject(projectData);
+        const response = await createProject(payload);
 
-        console.log('API Response:', response.data);
+        this.createdProject = response.data;
+        this.successMessage = `Project "${response.data.projectName}" created successfully`;
 
-        // Extract project data from the response wrapper
-        if (response.data && response.data.content) {
-          this.createdProject = response.data.content;
-          this.successMessage = `Project "${this.createdProject.projectName}" has been created successfully with ID: ${this.createdProject.id}`;
-          
-          // Scroll to success message
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-          
-          // Clear form
-          this.resetForm();
-        }
-
+        this.resetForm();
+        window.scrollTo({ top: 0, behavior: "smooth" });
       } catch (error) {
-        console.error('Error creating project:', error);
-        
-        // Handle different types of errors
-        if (error.response) {
-          // Server responded with error status
-          if (error.response.data && error.response.data.message) {
-            this.errorMessage = error.response.data.message;
-          } else if (error.response.status === 404) {
-            this.errorMessage = 'API endpoint not found. Please check if the backend server is running.';
-          } else {
-            this.errorMessage = `Server error: ${error.response.statusText}`;
-          }
-        } else if (error.request) {
-          // Request made but no response received
-          this.errorMessage = 'Cannot connect to server. Please check if the backend is running on http://localhost:8080';
+        console.error(error);
+
+        if (error.response?.data?.message) {
+          this.errorMessage = error.response.data.message;
         } else {
-          // Something else happened
-          this.errorMessage = `Error: ${error.message}`;
+          this.errorMessage = "Failed to create project";
         }
 
-        // Scroll to error message
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        
+        window.scrollTo({ top: 0, behavior: "smooth" });
       } finally {
         this.isSubmitting = false;
       }
     },
 
-    formatDateForAPI(dateTimeLocal) {
-      // Convert from datetime-local format (YYYY-MM-DDTHH:mm) 
-      // to ISO format required by backend (YYYY-MM-DDTHH:mm:ss)
-      if (!dateTimeLocal) return null;
-      return dateTimeLocal + ':00'; // Add seconds
-    },
-
-    formatDate(dateString) {
-      if (!dateString) return 'N/A';
-      const date = new Date(dateString);
-      return date.toLocaleString('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-    },
-
-    formatProjectType(type) {
-      if (!type) return 'N/A';
-      return type
-        .split('_')
-        .map(word => word.charAt(0) + word.slice(1).toLowerCase())
-        .join(' ');
-    },
-
     resetForm() {
       this.formData = {
-        projectCode: '',
-        projectName: '',
-        location: '',
-        projectType: '',
-        startDate: '',
-        endDate: '',
+        projectCode: "",
+        projectName: "",
+        location: "",
+        projectType: "",
+        startDate: "",
+        endDate: "",
         employeeId: null,
-        estimateBudget: null
+        estimatedBudget: null,
       };
-      this.successMessage = '';
-      this.errorMessage = '';
-    },
-
-    createAnother() {
-      this.createdProject = null;
-      this.successMessage = '';
-      this.errorMessage = '';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     },
 
     viewAllProjects() {
-      // Navigate to projects list page
-      // Assuming you're using Vue Router
-      this.$router.push('/admin/tables');
-      
-      // Or if not using router, you can emit an event:
-      // this.$emit('navigate', 'projects-list');
-    }
-  }
+      this.$router.push("/admin/tables");
+    },
+  },
 };
 </script>
-
-<style scoped>
-/* Custom styles if needed */
-input:focus,
-select:focus {
-  border-color: #10b981;
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
-}
-
-/* Remove spinner from number inputs */
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type="number"] {
-  -moz-appearance: textfield;
-}
-</style>

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "/ble/api/api", // base URL matches your backend login path
+  baseURL: "/ble/api/", 
   headers: {
     "Content-Type": "application/json",
   },
@@ -20,7 +20,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Global response interceptor
+
 api.interceptors.response.use(
   (response) => response,
   (error) => {
