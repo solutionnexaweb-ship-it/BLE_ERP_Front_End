@@ -358,7 +358,6 @@ export default {
           return;
         }
 
-        //  BACKEND PAYLOAD
         const payload = {
           projectCode: this.formData.projectCode.trim(),
           projectName: this.formData.projectName.trim(),
@@ -377,10 +376,17 @@ export default {
         const response = await createProject(payload);
 
         this.createdProject = response.data;
+
         this.successMessage = `Project "${response.data.projectName}" created successfully`;
 
-        this.resetForm();
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        this.resetForm(); 
+
+        this.isSubmitting = false;
+
+        this.$nextTick(() => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
       } catch (error) {
         console.error(error);
 
